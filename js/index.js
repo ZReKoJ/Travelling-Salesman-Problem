@@ -116,6 +116,8 @@ var algorithms = {
 }
 
 $(() => {
+    loadExternalData()
+
     makeResizableDiv('.setting-panel');
     makeResizableDiv('.info-panel');
 
