@@ -24,6 +24,7 @@ $(() => {
         console.log(data)
     })
 
+
     //let settingFunctions = settingPanel('.setting-panel>.setting');
 
     //infoMessages();
