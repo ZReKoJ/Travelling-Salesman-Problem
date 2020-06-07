@@ -1,0 +1,349 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 50px);
+    background-color: var(--surface-color);
+}
+
+.setting-panel {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    max-height: 200px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--primary-light-color);
+    overflow-y: auto;
+    flex-wrap: wrap;
+}
+
+.setting-panel>.setting {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    right: 5px;
+    width: calc(100% - 10px);
+    max-height: calc(100% - 20px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+.setting-panel>.setting>.box {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: calc(50% - 10px);
+    min-width: 450px;
+    height: 30px;
+    overflow: hidden;
+    margin: 0 5px 5px 5px;
+}
+
+.setting-panel>.setting>.box * {
+    height: 30px;
+}
+
+.setting-panel>.setting .space {
+    width: 5px;
+    min-width: 5px;
+}
+
+.setting-panel>.setting>.box input[type="file"] {
+    display: none;
+}
+
+.setting-panel>.setting>.box input[type="text"] {
+    font-weight: bold;
+    height: 80%;
+    padding: 0 5px 0 5px;
+    border: none;
+    flex-grow: 100;
+    color: var(--on-secondary-color);
+    background-color: var(--secondary-color);
+}
+
+.setting-panel>.setting>.box label {
+    margin-right: 3px;
+    color: var(--on-primary-color);
+}
+
+.setting-panel>.setting>.box .button {
+    -webkit-appearance: none;
+    font-size: 15px;
+    background-color: var(--secondary-color);
+    color: var(--on-secondary-color);
+}
+
+.setting-panel>.setting>.box>.file-upload>label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--on-secondary-color);
+    cursor: pointer;
+}
+
+.setting-panel>.setting>.box select {
+    background-color: var(--secondary-color);
+    color: var(--on-secondary-color);
+    height: 80%;
+}
+
+.setting-panel>.setting>.full-box {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: calc(100% - 20px);
+    height: 30px;
+    margin: 0 5px 5px 5px;
+}
+
+.setting-panel>.setting>.full-box * {
+    height: 30px;
+}
+
+.setting-panel>.setting>.full-box label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    color: var(--on-primary-color);
+    white-space: nowrap;
+}
+
+.setting-panel>.setting>.full-box input[type="number"] {
+    font-weight: bold;
+    height: 80%;
+    padding: 0 5px 0 5px;
+    border: none;
+    color: var(--on-secondary-color);
+    background-color: var(--secondary-color);
+}
+
+.setting-panel>.setting::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.setting-panel>.setting::-webkit-scrollbar-track {
+    background: var(--primary-color);
+    padding: 1px;
+    border-radius: 5px;
+}
+
+.setting-panel>.setting::-webkit-scrollbar-thumb {
+    background: var(--primary-dark-color);
+    border-radius: 5px;
+}
+
+.setting-panel>.setting::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(to right, var(--primary-color), var(--primary-dark-color));
+}
+
+.setting-panel>.setting::-webkit-scrollbar-corner {
+    background: var(--primary-light-color);
+}
+
+.setting-panel>.setting>* {
+    height: 30px;
+}
+
+.setting-panel>.resizer#top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--primary-dark-color);
+}
+
+.map-panel {
+    flex-grow: 100;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+}
+
+.info-panel {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    min-width: 300px;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+.info-panel>.information {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: auto;
+    background-color: var(--secondary-color);
+}
+
+.info-panel>.information>table {
+    margin: 10px 10px 5px 10px;
+    background-color: var(--secondary-color);
+}
+
+.info-panel>.information>table th {
+    text-align: center;
+    min-width: 100px;
+    max-width: 100px;
+    height: 30px;
+    overflow: hidden;
+    background-color: var(--secondary-dark-color);
+}
+
+.info-panel>.information>table td {
+    text-align: center;
+    min-width: 100px;
+    max-width: 100px;
+    height: 30px;
+    overflow: hidden;
+    background-color: var(--secondary-light-color);
+}
+
+.info-panel>.information::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.info-panel>.information::-webkit-scrollbar-track {
+    background: var(--secondary-light-color);
+    padding: 1px;
+    border-radius: 5px;
+}
+
+.info-panel>.information::-webkit-scrollbar-thumb {
+    background: var(--secondary-dark-color);
+    border-radius: 5px;
+}
+
+.info-panel>.information::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(to right, var(--secondary-light-color), var(--secondary-dark-color));
+}
+
+.info-panel>.information::-webkit-scrollbar-corner {
+    background: var(--secondary-color);
+}
+
+.info-panel>.resizer#left {
+    position: absolute;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: var(--primary-dark-color);
+}
+
+.draw-panel {
+    position: relative;
+    height: 100%;
+    flex-grow: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    overflow: auto;
+}
+
+.draw-panel>.result {
+    position: absolute;
+    top: 20px;
+    height: 10%;
+    width: 60%;
+    font-weight: bold;
+    font-size: large;
+    background-color: var(--secondary-light-color);
+    color: var(--on-secondary-color);
+    text-align: center;
+}
+
+.draw-panel>form.classify{
+    position: absolute;
+    top: calc(10% + 20px);
+    bottom: 20px;
+    width: calc(100% - 10% - 40px);
+    overflow: scroll;
+}
+
+.draw-panel>form.classify::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.draw-panel>form.classify::-webkit-scrollbar-track {
+    background: var(--secondary-color);
+    padding: 1px;
+    border-radius: 5px;
+}
+
+.draw-panel>form.classify::-webkit-scrollbar-thumb {
+    background: var(--secondary-dark-color);
+    border-radius: 5px;
+}
+
+.draw-panel>form.classify::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(to right, var(--secondary-light-color), var(--secondary-dark-color));
+}
+
+.draw-panel>form.classify::-webkit-scrollbar-corner {
+    background: var(--secondary-color);
+}
+
+.draw-panel>form.classify>.data-input {
+    color: var(--on-secondary-color);
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.draw-panel>form.classify>.data-input>input[type="number"] {
+    background-color: var(--secondary-light-color);
+    padding: 0 5px 0 5px;
+    height: 100%;
+    border: none;
+    font-weight: bold;
+    flex-grow: 100;
+}
+
+.draw-panel>form.classify>.data-input>input[type="number"]:focus {
+    border-bottom: 2px solid var(--secondary-dark-color);
+    outline: none;
+}
+
+.draw-panel>form.classify>.data-input>label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    min-width: 30px;
+}
