@@ -14,7 +14,7 @@
     <script src="./js/jquery.mapael.min.js"></script>
     <script src="./js/world_countries.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"
-            charset="utf-8"></script>
+        charset="utf-8"></script>
 
     <script src="./js/config.js"></script>
     <!-- String data messages -->
@@ -65,72 +65,10 @@
             <div class="setting-panel">
                 <div class="setting">
                     <div class="box">
-                        <button class="button state">Ejecutar</button>
+                        <button class="button execute">Ejecutar</button>
                     </div>
                     <div class="box">
-                        <div class="data-body button file-upload">
-                            <label for="data-body">Subir datos</label>
-                            <input id="data-body" type="file" accept="text/plain, .csv">
-                        </div>
-                    </div>
-                    <div class="box">
-                        <div>
-                            <label>Método:</label>
-                            <select class="methods">
-                                <option value="k-means" selected>K-Medias</option>
-                                <option value="bayes">Bayes</option>
-                                <option value="lloyd">Lloyd</option>
-                                <option value="som">SOM</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <div>
-                            <label>Clase:</label>
-                            <select class="class"></select>
-                        </div>
-                        <div class="space"></div>
-                        <div>
-                            <label>Delimitador:</label>
-                            <input class="delimiter" type="text">
-                        </div>
-                    </div>
-                    <div class="full-box k-means">
-                        <label>Tolerancia:</label>
-                        <input class="tolerance" type="number">
-                        <div class="space"></div>
-                        <label>Peso Exponencial:</label>
-                        <input class="exponential-weight" type="number">
-                    </div>
-                    <div class="full-box bayes"></div>
-                    <div class="full-box lloyd">
-                        <label>Tolerancia:</label>
-                        <input class="tolerance" type="number">
-                        <div class="space"></div>
-                        <label>Iteraciones máxima:</label>
-                        <input class="iteration" type="number">
-                        <div class="space"></div>
-                        <label>Razón de aprendizaje:</label>
-                        <input class="learning-ratio" type="number">
-                    </div>
-                    <div class="full-box som">
-                        <label>Tolerancia:</label>
-                        <input class="tolerance" type="number">
-                        <div class="space"></div>
-                        <label>Iteraciones máxima:</label>
-                        <input class="iteration" type="number">
-                        <div class="space"></div>
-                        <label>Razón de aprendizaje:</label>
-                        <input class="learning-ratio" type="number">
-                        <div class="space"></div>
-                        <label>Alpha Inicial:</label>
-                        <input class="alpha-initial" type="number">
-                        <div class="space"></div>
-                        <label>Alpha Final:</label>
-                        <input class="alpha-final" type="number">
-                        <div class="space"></div>
-                        <label>T:</label>
-                        <input class="t" type="number">
+                        <button class="button clear">Limpiar</button>
                     </div>
                 </div>
                 <div class="resizer" id='top'></div>

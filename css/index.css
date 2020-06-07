@@ -292,27 +292,27 @@
     overflow: scroll;
 }
 
-.draw-panel>form.classify::-webkit-scrollbar {
+.draw-panel::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
 
-.draw-panel>form.classify::-webkit-scrollbar-track {
+.draw-panel::-webkit-scrollbar-track {
     background: var(--secondary-color);
     padding: 1px;
     border-radius: 5px;
 }
 
-.draw-panel>form.classify::-webkit-scrollbar-thumb {
+.draw-panel::-webkit-scrollbar-thumb {
     background: var(--secondary-dark-color);
     border-radius: 5px;
 }
 
-.draw-panel>form.classify::-webkit-scrollbar-thumb:hover {
+.draw-panel::-webkit-scrollbar-thumb:hover {
     background-image: linear-gradient(to right, var(--secondary-light-color), var(--secondary-dark-color));
 }
 
-.draw-panel>form.classify::-webkit-scrollbar-corner {
+.draw-panel>.map::-webkit-scrollbar-corner {
     background: var(--secondary-color);
 }
 
@@ -346,4 +346,42 @@
     align-items: center;
     font-weight: bolder;
     min-width: 30px;
+}
+
+/* For all zoom buttons */
+.mapael .zoomButton {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #000;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    font-weight: bold;
+    left: 10px;
+
+    -webkit-user-select: none;
+    -khtml-user-select : none;
+    -moz-user-select: none;
+    -o-user-select : none;
+    user-select: none;
+}
+
+/* Reset Zoom button first */
+.mapael .zoomReset {
+    top: 10px;
+}
+
+/* Then Zoom In button */
+.mapael .zoomIn {
+    top: 30px;
+}
+
+/* Then Zoom Out button */
+.mapael .zoomOut {
+    top: 50px;
 }
