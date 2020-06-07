@@ -15,7 +15,6 @@ $(() => {
     loadExternalData();
 
     makeResizableDiv('.setting-panel');
-    makeResizableDiv('.info-panel');
 
     console.log(dataFiles);
     // the path where is located the data
@@ -24,6 +23,17 @@ $(() => {
         console.log(data)
     })
 
+    // Mapael initialisation
+    $(".draw-panel").mapael({
+        map: {
+            name: "world_countries",
+            zoom: {
+                enabled: true,
+                step: 0.25,
+                maxLevel: 100
+            }
+        }
+    });
 
     //let settingFunctions = settingPanel('.setting-panel>.setting');
 
