@@ -13,7 +13,7 @@ $(() => {
     // Mapael initialisation
     map.mapael({
         map: {
-            name: "world_countries",
+            name: "yemen",
             zoom: {
                 enabled: true,
                 step: 0.25,
@@ -86,8 +86,20 @@ function settingPanel(div) {
 
     let methodSelect = setting.find(".methods");
     methodSelect.on("change", (e) => {
-        loadDataFile("file:///D:/Travelling-Salesman-Problem/data/" + methodSelect.val() + ".txt", (parsedData) => {
-            console.log(parsedData);
+        loadDataFile("https://zrekoj.github.io/Travelling-Salesman-Problem/data/" + methodSelect.val() + ".txt", (parsedData) => {
+            let plots = {}
+            parsedData.forEach((data) => {
+                let updateOptions = {
+                    'newPlots': {}
+                };
+                let plotId = String(data[0]) + '-' + String(data[1]);
+                updateOptions.newPlots[plotId] = {
+                    x: data[0] / 100,
+                    y: data[1] / 100,
+                    size: 0.5
+                }
+                map.trigger('update', [updateOptions]);
+            })
         })
     });
 }
