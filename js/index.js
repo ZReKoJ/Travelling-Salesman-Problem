@@ -83,4 +83,11 @@ function settingPanel(div) {
             animDuration: 1000
         })
     });
+
+    let methodSelect = setting.find(".methods");
+    methodSelect.on("change", (e) => {
+        loadDataFile("file:///D:/Travelling-Salesman-Problem/data/" + methodSelect.val() + ".txt", (parsedData) => {
+            console.log(parsedData);
+        })
+    });
 }
