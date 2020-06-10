@@ -66,7 +66,7 @@ function parseData(data) {
         raphaelParams.y.min = Math.min(lines[1], raphaelParams.y.min);
         return [Number(lines[1]), Number(lines[2])]
     });
-    return parsedData.sort(() => 0.5 - Math.random()).slice(0, 1000);
+    return parsedData.sort(() => 0.5 - Math.random()).slice(0, CONFIG.MAX_NODES);
 }
 
 function settingPanel(div) {
@@ -74,9 +74,7 @@ function settingPanel(div) {
 
     let executeButton = setting.find("button.execute");
     executeButton.on("click", () => {
-        console.log(data);
         let sol = new PSO().setData(data).solution();
-        console.log(sol)
         sol.path.forEach(element => {
             drawLine(element[0], element[1])
         })
@@ -115,13 +113,16 @@ function filesMap(country) {
 function drawLine(from, to) {
     raphael.path([
         "M",
-        map.height() - ((from[1] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
-        (from[0] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min), 
+        (from[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min), 
+        map.height() - ((from[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
         "L", 
-        map.height() - ((to[1] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
-        (to[0] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
+        (to[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
+        map.height() - ((to[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
     ])
-    .attr("stroke", "#000000");
+    .attr("stroke", "#000000")
+    .attr("stroke-width", "1")
+    .attr("opacity", 0.5)
+    .translate(0.5, 0.5);
 }
 
 function drawCircle(y, x) {

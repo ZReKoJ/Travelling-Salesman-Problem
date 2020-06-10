@@ -4,12 +4,13 @@ var CONFIG = {
     DELIMITER: ",",
     CLASS: "5",
     METHOD: "k-means",
+    MAX_NODES: 50,
     ALGORITHMS: {
         "PSO": {
-            "iterations": 1000,
-            "population" : 10,
-            "alpha": 0.9,
-            "beta": 1
+            "iterations": 10000,
+            "population" : 100,
+            "alpha": 0.5,
+            "beta": 0.5
         },
         "bayes": {},
         "lloyd": {
