@@ -1,140 +1,183 @@
 "use strict"
 
+class Graph {
+    constructor(data) {
+        this.vertex = data;
+        this.edges = [];
+        this.numVertex = data.length;
+        this.complexGraph(this.numVertex);
+    }
+
+    // builds up a complex graph by giving the number of vertex
+    // as the distance from a - b is same as b - a, in this graph can only get one (less memory)
+    // created double dimension array in which first index is always bigger than second index
+    /*
+    [
+        [],                 position 0 has no links
+        [x],                position 1 has 1 link
+        [x, x],             position 2 has 2 links
+        [x, x, x],          position 3 has 3 links
+        [x, x, x, x],       position 4 has 4 links
+    ]
+    the links above are edges, and Xs are distances 
+    so if i wanna know distance between vertex 1 and 3, access [3][1]
+    */
+    complexGraph(numVertex) {
+        this.edges = Array(this.numVertex)
+            .fill(undefined)
+            .map(
+                (a, i) => Array(i)
+                .fill(undefined)
+                .map(
+                    (b, j) => this.calculateDistance(i, j)
+                )
+            );
+    }
+
+    calculateDistance(i, j) {
+        return Math.sqrt(
+            Math.pow(this.vertex[i][0] - this.vertex[j][0], 2) +
+            Math.pow(this.vertex[i][1] - this.vertex[j][1], 2)
+        );
+    }
+
+    getRandomPath() {
+        // shuffle random order giving random paths
+        return Array(this.numVertex)
+            .fill(undefined)
+            .map((a, index) => index)
+            .sort(() => 0.5 - Math.random())
+    }
+
+    getDistance(i, j) {
+        // the first index must be the bigger one as the structure of the graph is defined like this
+        return this.edges[Math.max(i, j)][Math.min(i, j)];
+    }
+
+    getPrintFormat(path) {
+        return path.map(
+            (element, index) => [
+                this.vertex[element],
+                this.vertex[path[(index + 1) % path.length]]
+            ]
+        )
+    }
+}
+
 class Algorithm {
     constructor() {}
 
     setData(data) {
-        this.rawData = data;
+        this.graph = new Graph(data);
         return this;
     }
 
-    train() {}
+    solution() {}
 }
 
-class KMeans extends Algorithm {
+class Bee {
+    constructor(graph) {
+        this.graph = graph;
+        this.path = graph.getRandomPath();
+        this.personalBestPath = this.path.slice(0);
+        this.cost = this.getCost();
+        this.personalBestCost = this.cost;
+    }
+
+    getCost() {
+        return this.path.reduce(
+            (accumulator, from, index) =>
+            accumulator + this.graph.getDistance(from, this.path[(index + 1) % this.path.length]), 0);
+    }
+
+    getPath() {
+        // return copy
+        return this.path.slice(0);
+    }
+
+    setPath(path) {
+        this.path = path;
+        this.cost = this.getCost();
+        if (this.cost < this.personalBestCost) {
+            this.personalBestPath = this.path;
+            this.personalBestCost = this.cost;
+        }
+    }
+
+    getPersonalBestCost() {
+        return this.personalBestCost;
+    }
+
+    getPersonalBestPath() {
+        // return copy
+        return this.personalBestPath.slice(0);
+    }
+
+    getPrintFormat() {
+        return {
+            cost: this.personalBestCost,
+            path: this.graph.getPrintFormat(this.getPersonalBestPath())
+        }
+    }
+}
+
+class PSO extends Algorithm {
     constructor() {
         super();
     }
 
     setData(data) {
         super.setData(data);
-
-        this.data = {};
-        this.classes = [];
-
-        Array(data.columns).fill().forEach((element, index) => {
-            if (index + 1 < CONFIG.CLASS) {
-                this.data[index] = [];
-                for (let j = 0; j < data.body.length; j++) {
-                    this.data[index].push(Number(data.body[j][index]));
-                }
-            } else {
-                for (let j = 0; j < data.body.length; j++) {
-                    this.classes.push(String(data.body[j][index]));
-                }
-            }
-        });
-
         return this;
     }
 
-    train() {
-        let centers = {};
-        Array.from(new Set(this.classes)).forEach(c => {
-            centers[c] = {};
-            let count = this.classes.reduce((ac, n) => (c == n) ? ac + 1 : ac, 0);
-            Object.keys(this.data).forEach(key => {
-                let sum = this.data[key].reduce((ac, n, index) => (c == this.classes[index]) ? ac + n : ac, 0);
-                centers[c][key] = sum / count;
+    solution() {
+        let bees = Array(CONFIG.ALGORITHMS["PSO"]["population"])
+            .fill(undefined)
+            .map(element =>
+                new Bee(this.graph)
+            );
+
+        Array(CONFIG.ALGORITHMS["PSO"]["iterations"])
+            .fill(undefined)
+            .forEach((element, index) => {
+                // first position is the best
+                bees.sort((a, b) => a.getPersonalBestCost() - b.getPersonalBestCost());
+
+                bees.forEach(bee => {
+                    let swap = [];
+                    let currentPath = bee.getPath();
+
+                    this.getSwap(swap, currentPath, bee.getPersonalBestPath(), CONFIG.ALGORITHMS["PSO"]["alpha"]);
+                    this.getSwap(swap, currentPath, bees[0].getPersonalBestPath(), CONFIG.ALGORITHMS["PSO"]["beta"]);
+
+                    swap.forEach((sw) => {
+                        if (Math.random() <= sw[2]) {
+                            let aux = currentPath[sw[0]];
+                            currentPath[sw[0]] = currentPath[sw[1]];
+                            currentPath[sw[1]] = aux;
+                        }
+                    });
+
+                    bee.setPath(currentPath);
+                });
             });
-        });
 
-        this.centers = this.iterate(centers);
+        return bees.sort((a, b) => a.getPersonalBestCost() - b.getPersonalBestCost())[0].getPrintFormat();
     }
 
-    iterate(centers) {
-        let belongingDegrees = this.belongingDegree(centers);
-        let newCenters = this.center(centers, belongingDegrees);
-        if (this.difference(centers, newCenters)) {
-            return newCenters;
-        } else {
-            return this.iterate(newCenters);
-        }
-    }
-
-    difference(centers, newCenters) {
-        return Object.keys(centers).every(key =>
-            Number(CONFIG.ALGORITHMS["k-means"].tolerance) > Math.sqrt(
-                Object.keys(centers[key]).reduce((ac, n) => Math.pow(centers[key][n] - newCenters[key][n], 2) + ac, 0)
-            )
-        );
-    }
-
-    center(centers, belongingDegrees) {
-        let newCenters = {};
-        Object.keys(centers).forEach(
-            key => {
-                newCenters[key] = {};
-                Object.keys(this.data).forEach(
-                    row => {
-                        let dividend = this.data[row].reduce(
-                            (ac, n, index) => Math.pow(belongingDegrees[key][index], CONFIG.ALGORITHMS["k-means"]["exponential-weight"]) * n + ac, 0);
-                        let divider = this.data[row].reduce(
-                            (ac, n, index) => Math.pow(belongingDegrees[key][index], CONFIG.ALGORITHMS["k-means"]["exponential-weight"]) + ac, 0);
-                        newCenters[key][row] = dividend / divider;
-                    }
-                );
-            }
-        )
-        return newCenters;
-    }
-
-    belongingDegree(centers) {
-        let belongingDegrees = {};
-        let distances = Array(this.classes.length).fill().map(
-            (element, index) => {
-                let distance = {}
-                Object.keys(centers).forEach(
-                    key => {
-                        distance[key] = Object.keys(centers[key]).reduce(
-                            (ac, n) => Math.pow(this.data[n][index] - centers[key][n], 2) + ac, 0)
-                    }
-                );
-                distance["sum"] = Object.values(distance).reduce((ac, n) =>
-                    ac + Math.pow(1 / n, 1 / (CONFIG.ALGORITHMS["k-means"]["exponential-weight"] - 1)), 0);
-                return distance;
-            }
-        );
-        Object.keys(centers).forEach(
-            key => {
-                belongingDegrees[key] = distances.map(
-                    element => Math.pow(1 / element[key], 1 / (CONFIG.ALGORITHMS["k-means"]["exponential-weight"] - 1)) / element["sum"]
-                )
-            }
-        )
-        return belongingDegrees;
-    }
-
-    execute(inputsData) {
-        let arrayResult = [];
-        let total = 0;
-        Object.keys(this.centers).forEach(key => {
-            let result = Math.sqrt(
-                Object.keys(this.centers[key]).reduce(
-                    (ac, n) => Math.pow(Number(this.centers[key][n]) - Number(inputsData[n]), 2) + ac, 0)
-            )
-            total += result;
-            arrayResult.push({
-                title: key,
-                probability: result
-            })
-        });
-        return arrayResult
-            .map(element => {
-                element.probability = 1 - (element.probability / total);
-                return element;
-            })
-            .sort((a, b) => a.probability < b.probability ? 1 : -1);
+    getSwap(swap, solution, betterSolution, parameter) {
+        Array(solution.length)
+            .fill(undefined)
+            .forEach((element, index) => {
+                if (solution[index] != betterSolution[index]) {
+                    swap.push([index, betterSolution.indexOf(solution[index]), parameter]);
+                    // swap variables
+                    let aux = betterSolution[swap[swap.length - 1][0]];
+                    betterSolution[swap[swap.length - 1][0]] = betterSolution[swap[swap.length - 1][1]];
+                    betterSolution[swap[swap.length - 1][1]] = aux;
+                }
+            });
     }
 }
 
@@ -414,7 +457,7 @@ class SOM extends Algorithm {
     updateCenters(centers, row, alpha) {
         Object.keys(centers).forEach(key => {
             let result = row.reduce(
-                    (ac, n, index) => Math.pow(n - centers[key][index], 2) + ac, 0);
+                (ac, n, index) => Math.pow(n - centers[key][index], 2) + ac, 0);
             result = Math.exp(
                 -1 * (result / (2 * Math.pow(alpha, 2)))
             );

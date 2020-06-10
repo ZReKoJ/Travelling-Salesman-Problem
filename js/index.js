@@ -24,6 +24,16 @@ $(() => {
     worldMap();
 
     let settingFunctions = settingPanel('.setting-panel>.setting');
+    /*
+        let ddd = ""
+        ddd += "1 2 0\n"
+        ddd += "2 1 1\n"
+        ddd += "3 3 5\n"
+        ddd += "4 5 4\n"
+        ddd += "5 4 2\n"
+
+        let arg = new PSO().setData(parseData(ddd)).solution();
+    */
 });
 
 function loadDataFile(link, callback) {
@@ -57,10 +67,6 @@ function parseData(data) {
         return [Number(lines[1]), Number(lines[2])]
     });
     return parsedData.sort(() => 0.5 - Math.random()).slice(0, 1000);
-    return parsedData.sort(() => 0.5 - Math.random()).slice(0, 1000).map(values => [
-        mapSize.height - ((values[0] - y.min) * mapSize.height / (y.max - y.min)),
-        (values[1] - x.min) * mapSize.width / (x.max - x.min)
-    ]);
 }
 
 function settingPanel(div) {
@@ -69,6 +75,11 @@ function settingPanel(div) {
     let executeButton = setting.find("button.execute");
     executeButton.on("click", () => {
         console.log(data);
+        let sol = new PSO().setData(data).solution();
+        console.log(sol)
+        sol.path.forEach(element => {
+            drawLine(element[0], element[1])
+        })
     });
 
     let clearButton = setting.find("button.clear");
@@ -99,6 +110,18 @@ function filesMap(country) {
             drawCircle(dataValue[0], dataValue[1]);
         });
     });
+}
+
+function drawLine(from, to) {
+    raphael.path([
+        "M",
+        map.height() - ((from[1] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
+        (from[0] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min), 
+        "L", 
+        map.height() - ((to[1] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
+        (to[0] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
+    ])
+    .attr("stroke", "#000000");
 }
 
 function drawCircle(y, x) {
