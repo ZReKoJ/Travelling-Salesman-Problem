@@ -24,16 +24,6 @@ $(() => {
     worldMap();
 
     let settingFunctions = settingPanel('.setting-panel>.setting');
-    /*
-        let ddd = ""
-        ddd += "1 2 0\n"
-        ddd += "2 1 1\n"
-        ddd += "3 3 5\n"
-        ddd += "4 5 4\n"
-        ddd += "5 4 2\n"
-
-        let arg = new PSO().setData(parseData(ddd)).solution();
-    */
 });
 
 function loadDataFile(link, callback) {
@@ -74,7 +64,8 @@ function settingPanel(div) {
 
     let executeButton = setting.find("button.execute");
     executeButton.on("click", () => {
-        let sol = new PSO().setData(data).solution();
+        //let sol = new PSO().setData(data).solution();
+        let sol = new ACO().setData(data).solution();
         sol.path.forEach(element => {
             drawLine(element[0], element[1])
         })
@@ -112,17 +103,17 @@ function filesMap(country) {
 
 function drawLine(from, to) {
     raphael.path([
-        "M",
-        (from[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min), 
-        map.height() - ((from[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
-        "L", 
-        (to[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
-        map.height() - ((to[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
-    ])
-    .attr("stroke", "#000000")
-    .attr("stroke-width", "1")
-    .attr("opacity", 0.5)
-    .translate(0.5, 0.5);
+            "M",
+            (from[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
+            map.height() - ((from[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
+            "L",
+            (to[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
+            map.height() - ((to[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
+        ])
+        .attr("stroke", "#000000")
+        .attr("stroke-width", "1")
+        .attr("opacity", 0.5)
+        .translate(0.5, 0.5);
 }
 
 function drawCircle(y, x) {
