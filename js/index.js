@@ -3,6 +3,7 @@
 var notifier = new Notifier();
 var map;
 var raphael;
+var color = "#000000";
 var raphaelParams = {
     x: {
         max: 0,
@@ -14,6 +15,11 @@ var raphaelParams = {
     }
 };
 var data = [];
+
+var algorithms = {
+    "PSO": new PSO(),
+    "ACO": new ACO()
+}
 
 $(() => {
     loadExternalData();
@@ -56,7 +62,7 @@ function parseData(data) {
         raphaelParams.y.min = Math.min(lines[1], raphaelParams.y.min);
         return [Number(lines[1]), Number(lines[2])]
     });
-    return parsedData.sort(() => 0.5 - Math.random()).slice(0, CONFIG.MAX_NODES);
+    return parsedData.sort(() => 0.5 - Math.random()).slice(0, CONFIG.ALGORITHMS[CONFIG.METHOD].node);
 }
 
 function settingPanel(div) {
@@ -64,30 +70,63 @@ function settingPanel(div) {
 
     let executeButton = setting.find("button.execute");
     executeButton.on("click", () => {
-        //let sol = new PSO().setData(data).solution();
-        let sol = new ACO().setData(data).solution();
+        let sol = algorithms[CONFIG.METHOD].setData(data).solution();
+        color = "#" + Math.floor(Math.random() * 16777215).toString(16);
         sol.path.forEach(element => {
-            drawLine(element[0], element[1])
+            if (dataSelect.val() != "world") {
+                drawLineRaphael(element[0], element[1])
+            } else {
+                drawLineMapael(element[0], element[1])
+            }
         })
+    });
+
+    let dataSelect = setting.find(".data");
+    dataSelect.on("change", (e) => {
+        $(".draw-panel").empty();
+        if (dataSelect.val() == "world") {
+            worldMap();
+        } else {
+            filesMap(dataSelect.val());
+        }
     });
 
     let clearButton = setting.find("button.clear");
     clearButton.on("click", () => {
-        map.trigger('update', {
-            deletePlotKeys: "all",
-            deleteLinkKeys: "all",
-            animDuration: 1000
-        })
+        $(".draw-panel").empty();
+        if (dataSelect.val() == "world") {
+            worldMap();
+        } else {
+            filesMap(dataSelect.val());
+        }
     });
 
     let methodSelect = setting.find(".methods");
     methodSelect.on("change", (e) => {
-        $(".draw-panel").empty();
-        if (methodSelect.val() == "world") {
-            worldMap();
-        } else {
-            filesMap(methodSelect.val());
-        }
+        CONFIG.METHOD = methodSelect.val();
+        setting.find(".full-box").hide();
+        setting.find("." + CONFIG.METHOD).show();
+    });
+
+    setting.find(".full-box").hide();
+    setting.find("." + CONFIG.METHOD).show();
+    Object.keys(CONFIG.ALGORITHMS).forEach(algorithm => {
+        let element = setting.find("." + algorithm);
+        Object.keys(CONFIG.ALGORITHMS[algorithm]).forEach(attr => {
+            let attribute = element.find("." + attr);
+            attribute.val(CONFIG.ALGORITHMS[algorithm][attr]);
+            attribute.on("change", (e) => {
+                CONFIG.ALGORITHMS[algorithm][attr] = attribute.val();
+                if (attr == "node") {
+                    $(".draw-panel").empty();
+                    if (dataSelect.val() == "world") {
+                        worldMap();
+                    } else {
+                        filesMap(dataSelect.val());
+                    }
+                }
+            });
+        });
     });
 }
 
@@ -101,7 +140,7 @@ function filesMap(country) {
     });
 }
 
-function drawLine(from, to) {
+function drawLineRaphael(from, to) {
     raphael.path([
             "M",
             (from[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
@@ -110,10 +149,28 @@ function drawLine(from, to) {
             (to[1] - raphaelParams.x.min) * map.width() / (raphaelParams.x.max - raphaelParams.x.min),
             map.height() - ((to[0] - raphaelParams.y.min) * map.height() / (raphaelParams.y.max - raphaelParams.y.min)),
         ])
-        .attr("stroke", "#000000")
+        .attr("stroke", color)
         .attr("stroke-width", "1")
         .attr("opacity", 0.5)
         .translate(0.5, 0.5);
+}
+
+function drawLineMapael(from, to) {
+    let fromId = String(from[0]) + '-' + String(from[1]);
+    let toId = String(to[0]) + '-' + String(to[1]);
+    let linkId = fromId + '-' + toId;
+    let updateOptions = {
+        'newLinks': {}
+    };
+    updateOptions.newLinks[linkId] = {
+        factor: -0.3,
+        between: [fromId, toId],
+        attrs: {
+            "stroke-width" : 0.5,
+            "stroke" : color
+        }
+    }
+    map.trigger('update', [updateOptions]);
 }
 
 function drawCircle(y, x) {
@@ -125,6 +182,7 @@ function drawCircle(y, x) {
 }
 
 function worldMap() {
+    data = []
     map.append('<div class="map">Cargando ...</div>');
 
     // Mapael initialisation
@@ -138,6 +196,12 @@ function worldMap() {
             }
         }
     });
+
+    map.trigger('update', {
+        deletePlotKeys: "all",
+        deleteLinkKeys: "all",
+        animDuration: 1000
+    })
 
     map.on('dblclick', (e) => {
         let coords = map.data('mapael').mapPagePositionToXY(e.pageX, e.pageY);

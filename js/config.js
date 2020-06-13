@@ -1,23 +1,22 @@
 'use strict'
 
 var CONFIG = {
-    DELIMITER: ",",
-    CLASS: "5",
-    METHOD: "k-means",
-    MAX_NODES: 100,
+    METHOD: "PSO",
     ALGORITHMS: {
         "PSO": {
-            "iterations": 10000,
+            "iteration": 1000,
             "population" : 100,
             "alpha": 0.5,
-            "beta": 0.5
+            "beta": 0.5,
+            "node": 50
         },
         "ACO": {
-            "iterations": 100,
+            "iteration": 100,
             "population" : 10,
             "evaporation": 0.5,
             "alpha": 0.5,
-            "beta": 0.5
+            "beta": 0.5,
+            "node": 50
         }
     },
     SHOW_MESSAGES_INTERVAL: 30000

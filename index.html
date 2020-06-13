@@ -67,12 +67,21 @@
                 <div class="setting">
                     <div class="box">
                         <button class="button execute">Ejecutar</button>
+                        <div class="space"></div>
                         <button class="button clear">Limpiar</button>
                     </div>
                     <div class="box">
                         <div>
                             <label>Método:</label>
                             <select class="methods">
+                                <option value="PSO" selected>PSO</option>
+                                <option value="ACO">ACO</option>
+                            </select>
+                        </div>
+                        <div class="space"></div>
+                        <div>
+                            <label>Modelo:</label>
+                            <select class="data">
                                 <option value="world" selected>World</option>
                                 <option value="argentina">Argentina</option>
                                 <option value="yemen">Yemen</option>
@@ -80,6 +89,41 @@
                                 <option value="uruguay">Uruguay</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="full-box PSO">
+                        <label>Nodos:</label>
+                        <input class="node" type="number" min="10" max="500" step="1" >
+                        <div class="space"></div>
+                        <label>Iteraciones:</label>
+                        <input class="iteration" type="number" min="10" max="10000" step="100" >
+                        <div class="space"></div>
+                        <label>Abejas:</label>
+                        <input class="population" type="number" min="10" max="100" step="1" >
+                        <div class="space"></div>
+                        <label>Alfa:</label>
+                        <input class="alpha" type="number" min="0" max="1" step="0.1" >
+                        <div class="space"></div>
+                        <label>Beta:</label>
+                        <input class="beta" type="number" min="0" max="1" step="0.1" >
+                    </div>
+                    <div class="full-box ACO">
+                        <label>Nodos:</label>
+                        <input class="node" type="number" min="10" max="500" step="1" >
+                        <div class="space"></div>
+                        <label>Iteraciones:</label>
+                        <input class="iteration" type="number" min="1" max="100" step="1" >
+                        <div class="space"></div>
+                        <label>Abejas:</label>
+                        <input class="population" type="number" min="1" max="10" step="1" >
+                        <div class="space"></div>
+                        <label>Alfa:</label>
+                        <input class="alpha" type="number" min="0" max="1" step="0.1" >
+                        <div class="space"></div>
+                        <label>Beta:</label>
+                        <input class="beta" type="number" min="0" max="1" step="0.1" >
+                        <div class="space"></div>
+                        <label>Evaporación:</label>
+                        <input class="evaporation" type="number">
                     </div>
                 </div>
                 <div class="resizer" id='top'></div>

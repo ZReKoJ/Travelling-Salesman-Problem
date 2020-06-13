@@ -158,7 +158,7 @@ class PSO extends Algorithm {
                 new Bee(this.graph)
             );
 
-        Array(CONFIG.ALGORITHMS["PSO"]["iterations"])
+        Array(CONFIG.ALGORITHMS["PSO"]["iteration"])
             .fill(undefined)
             .forEach((element, index) => {
                 // first position is the best
@@ -320,7 +320,7 @@ class ACO extends Algorithm {
             .sort(() => 0.5 - Math.random());
 
         // for each iteration
-        Array(CONFIG.ALGORITHMS["ACO"]["iterations"])
+        Array(CONFIG.ALGORITHMS["ACO"]["iteration"])
             .fill(undefined)
             .forEach((element, index) => {
                 // for each ant
