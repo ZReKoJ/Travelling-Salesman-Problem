@@ -352,7 +352,6 @@ class ACO extends Algorithm {
                 });
             });
 
-        console.log("done")
         return ants.sort((a, b) => a.getCost() - b.getCost())[0].getPrintFormat();
     }
 }
