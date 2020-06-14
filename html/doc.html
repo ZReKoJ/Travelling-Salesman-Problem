@@ -46,16 +46,19 @@
             </div>
         </div>
         <div class="main">
-            <h1 align="center">Algoritmos de Aprendizaje</h1>
-            <p align="center"><a href="https://github.com/ZReKoJ/Machine-Learning-Algorithms">Repositorio github</a></p>
+            <h1 align="center">El problema del viajante</h1>
+            <p align="center"><a href="https://github.com/ZReKoJ/Travelling-Salesman-Problem">Repositorio github</a></p>
             <h2 id="description" align="center">Descripción</h2>
             <div class="list-group">
-                <p class="list-group-item">Se trata de una aplicación que simula los algoritmos de aprendizaje.</p>
-                <p class="list-group-item">El algoritmo consta de tres partes: datos, entrenamiento y ejecución.</p>
-                <p class="list-group-item">Datos : Se guarda los datos y se organiza.</p>
-                <p class="list-group-item">Entrenamiento : Usando los datos, entrena un modelo.</p>
-                <p class="list-group-item">Ejecución : Dados unos inputs, consigue el resultado.</p>
-                <p class="list-group-item">Se ofrece en total 4 algoritmos: K-Means, Bayes, Lloyd y SOM.</p>
+                <p class="list-group-item">El problema a resolver se trata de resolver el problema del viajante</p>
+                <p class="list-group-item">Dada una lista de ciudades, cada una conectadas entre sí, formando así un
+                    grafo completo.</p>
+                <p class="list-group-item">Se tiene que encontrar la ruta más corta donde recorre a todas las ciudades y
+                    vuelve al punto inicial teniendo la limitación de tener que pasar por cada ciudad sólo una vez.</p>
+                <p class="list-group-item">En este proyecto se ha implementado dos algoritmos: PSO y ACO (Optimización
+                    por enjambres de partículas y Algoritmo de la colonia de hormigas.</p>
+                <p class="list-group-item">Debido a que el navegador no soporta gran carga computacional, si se inserta
+                    parámetros bastantes grandes para la computación el navegador no lo soportaría y se bloquearía.</p>
             </div>
             <h2 id="contributors" align="center">Integrantes</h2>
             <ul class="list-group">
@@ -63,22 +66,31 @@
             </ul>
             <h2 id="comments" align="center">Comentarios</h2>
             <div class="list-group">
-                <p class="list-group-item">La vista del programa consiste en 4 zonas: Cabecera, Inputs, Tabla y
+                <p class="list-group-item">La vista del programa consiste en 3 zonas: Cabecera, Mapa y
                     Settings.</p>
-                <p class="list-group-item">Cabecera: Para la transición con otras páginas como la de documentación.</p>
-                <p class="list-group-item">Inputs: Donde se inserta los inputs y muestra el resultado.</p>
-                <p class="list-group-item">Tabla: Se encuentra los datos cargados.</p>
-                <p class="list-group-item">Settings: Para configuraciones.</p>
+                <p class="list-group-item"><b>Cabecera:</b> Para la transición con otras páginas como la de
+                    documentación.</p>
+                <p class="list-group-item"><b>Mapa:</b> Donde se mustra los puntos en un plano de dos dimensiones y
+                    muestra el resultado dibujando el path.</p>
+                <p class="list-group-item">Existen dos tipos de mapas donde se muestra el resultado</p>
+                <p class="list-group-item">1. Un mapa mundi donde al hacer doble click sobre el mapa se coloca un nodo
+                    sobre el plano indicando que es una ciudad para el problema del viajante.</p>
+                <p class="list-group-item">2. Tras cargarse los datos en vez de usar el mapa mundi, se mostrará los
+                    puntos cargados en el plano.</p>
+                <p class="list-group-item"><b>Settings:</b> Para configuraciones.</p>
                 <p class="list-group-item">El botón de ejecutar es para inicializar la simulación.</p>
-                <p class="list-group-item">El botón subir datos es para cargar los valores de los atributos.</p>
-                <p class="list-group-item">Para la organización de los textos se aceptan textos planos u otros
-                    extensiones como .csv.</p>
-                <p class="list-group-item">Si se usa Windows hay que dejar un Enter al final puesto que no se aceptan
-                    caracteres raros en el fichero, que causarían problemas al parsear.</p>
-                <p class="list-group-item">El input delimitador es para indicar que signo se usa para separar las
-                    palabras en los documentos cargados.</p>
-                <p class="list-group-item">El selector clase es para indicar qué atributo es la de resultado.</p>
-                <p class="list-group-item">Los otros inputs son los parámetros para cada uno de los algoritmos.</p>
+                <p class="list-group-item">El botón limpiar es resetear el plano, dejándolos limpios.</p>
+                <p class="list-group-item">Existe un desglose para elegir el algoritmo a utilizar.</p>
+                <p class="list-group-item">Existe un desglose para elegir los datos a utilizar. Se podría añadir una
+                    función para que dinámicamente añadir datos por el cliente.</p>
+                <p class="list-group-item">Existe también inputs para rellenar, los cuales son los parámetros
+                    necesitados para el algoritmo:</p>
+                <p class="list-group-item">1. Nodos: El número máximo de puntos a usarse en el algoritmo, pues el
+                    navegador no soporta mucha carga computacional.</p>
+                <p class="list-group-item">2. Iteraciones: El número de iteraciones que hace el algoritmo.</p>
+                <p class="list-group-item">3. Alfa: Parámetro del algoritmo.</p>
+                <p class="list-group-item">4. Beta: Parámetro del algoritmo.</p>
+                <p class="list-group-item">5. Tasa de evaporación: Parámetro del algoritmo.</p>
             </div>
             <h2 id="views" align="center">Vistas</h2>
             <div class="list-group">
@@ -123,14 +135,27 @@
                     <p class="mb-1">Se usa para simplificar.</p>
                     <small class="text-muted">Click para redirigir a la página</small>
                 </a>
-                <a target="_blank" href="https://mathjs.org/"
+                <a target="_blank" href="http://raphaeljs.com/"
                     class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Math JS</h5>
-                        <small class="text-muted">Librería javascript para cálculos matemáticos</small>
+                        <h5 class="mb-1">Raphael</h5>
+                        <small class="text-muted">librería javascript para dibujar sobre la página web, básicamente crea
+                            un svg y pinta sobre ella, es usada en este proyecto para pintar puntos y líneas sobre el
+                            plano.</small>
                     </div>
-                    <p class="mb-1">Es la librería que se usa en el proyecto calcular operaciones como la inversa de una
-                        matriz.</p>
+                    <p class="mb-1">Se usa para simplificar.</p>
+                    <small class="text-muted">Click para redirigir a la página</small>
+                </a>
+                <a target="_blank" href="https://www.vincentbroute.fr/mapael/"
+                    class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Mapael</h5>
+                        <small class="text-muted">Librería javascript dibujar un mapa del mundo</small>
+                    </div>
+                    <p class="mb-1">Es la librería que se usa en el proyecto para dibujar cualquier mapa en la web
+                        usando la librería Raphael.js dando las coordenadas del ciudad o país a dibujar. Debido que los
+                        datos que obtengo del problema no concuerda con las coordenadas con el mundo real, sólo he
+                        utilizado esta librería para la ejecución intractiva.</p>
                     <small class="text-muted">Click para redirigir a la página</small>
                 </a>
             </div>
