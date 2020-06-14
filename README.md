@@ -7,4 +7,4 @@ __Descripción:__ Imaginemos que hay N ciudades **_(Nodos)_** donde cada ciudad 
 __Entrada:__ El problema toma como entrada el número de ciudades para que viaje el viajante, además proporcionando las distancias que existen entre cada una de las ciudades. Para este proyecto se ha cogido los datos del [enlace](http://www.math.uwaterloo.ca/tsp/data/).
 
 __Salida:__ Tras calcular los datos de entrada mediante los algoritmos usados del proyecto, se dibujarán los resultados sobre el plano.
-![alt tag](https://github.com/ZReKoJ/Travelling-Salesman-Problem/blob/master/data/images/image)
+![alt tag](https://github.com/ZReKoJ/Travelling-Salesman-Problem/blob/master/data/images/example_result.png)
