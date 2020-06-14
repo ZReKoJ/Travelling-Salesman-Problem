@@ -116,7 +116,7 @@ function settingPanel(div) {
             let attribute = element.find("." + attr);
             attribute.val(CONFIG.ALGORITHMS[algorithm][attr]);
             attribute.on("change", (e) => {
-                CONFIG.ALGORITHMS[algorithm][attr] = attribute.val();
+                CONFIG.ALGORITHMS[algorithm][attr] = Number(attribute.val());
                 if (attr == "node") {
                     $(".draw-panel").empty();
                     if (dataSelect.val() == "world") {
